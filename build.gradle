@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'application' // Плагин для работы с приложением
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+}
+
+application {
+    mainClassName = 'org.example.Main'  // Указываем основной класс с методом main
+}
+
+test {
+    useJUnitPlatform()
+}
