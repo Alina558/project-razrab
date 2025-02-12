@@ -112,7 +112,9 @@ public class FileFilterUtility {
 
     // Обработка строки
     private void processString(String line) {
-        stringCount++;
+        if (line.trim().isEmpty()) return;  // Игнорируем пустые строки
+
+        stringCount++;  // Увеличиваем счетчик строк
         int length = line.length();
         if (length < minLength) minLength = length;
         if (length > maxLength) maxLength = length;
@@ -122,6 +124,7 @@ public class FileFilterUtility {
     private void printStatistics() {
         System.out.println("Statistics:");
 
+        // Статистика для целых чисел
         if (fullStats) {
             System.out.println("Full statistics for integers:");
             System.out.println("Minimum: " + minInt);
@@ -130,18 +133,29 @@ public class FileFilterUtility {
             System.out.println("Average: " + intAverage);  // Используем intAverage
         } else {
             System.out.println("Summary statistics for integers:");
-            System.out.println("Number of integers: " + intCount);
+            System.out.println("Number of integers: " + intCount);  // Количество целых чисел
         }
 
+        // Статистика для строк
         if (fullStats) {
             System.out.println("Full statistics for strings:");
             System.out.println("Minimum string length: " + minLength);
             System.out.println("Maximum string length: " + maxLength);
         } else {
             System.out.println("Summary statistics for strings:");
-            System.out.println("Number of strings: " + stringCount);
+            System.out.println("Number of strings: " + stringCount);  // Количество строк
+        }
+
+        // Статистика для вещественных чисел
+        if (fullStats) {
+            System.out.println("Full statistics for floats:");
+            System.out.println("Number of floats: " + floatCount);  // Количество вещественных чисел
+        } else {
+            System.out.println("Summary statistics for floats:");
+            System.out.println("Number of floats: " + floatCount);  // Количество вещественных чисел
         }
     }
+
 
     // Запись в файл
     private void writeToFile(String fileName, int count, boolean appendMode, String type, int min, int max, double sum, double average) {

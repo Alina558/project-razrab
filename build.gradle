@@ -15,6 +15,10 @@ application {
     mainClassName = 'org.example.Main'  // Указываем основной класс с методом main
 }
 
+run {
+    args = project.hasProperty('args') ? project.args : [] // Передаем аргументы
+}
+
 test {
     useJUnitPlatform()
 }

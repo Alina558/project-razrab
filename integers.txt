@@ -1,5 +1,5 @@
 Minimum: 123
-Maximum: 123
-Sum: 123.0
-Average: 123.0
-Number of Integer: 1
+Maximum: 456
+Sum: 579.0
+Average: 289.5
+Number of Integer: 2
