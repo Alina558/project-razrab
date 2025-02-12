@@ -2,6 +2,8 @@ package org.example;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;  // Этот импорт добавляем для работы с Files
+import java.nio.file.Paths; // Этот импорт добавляем для работы с путями файлов
 import java.util.*;
 
 public class FileFilterUtility {
@@ -27,6 +29,7 @@ public class FileFilterUtility {
     // Конструктор
     public FileFilterUtility(List<String> inputFiles) {
         this.inputFiles = inputFiles != null ? inputFiles : new ArrayList<>();
+        this.outputDir = Paths.get("C:\\Users\\Пользователь\\IdeaProjects\\laba1").toAbsolutePath().toString();
     }
 
     // Установить выходной каталог
@@ -64,6 +67,18 @@ public class FileFilterUtility {
                 continue;
             }
 
+            // Добавляем вывод содержимого файла
+            try {
+                List<String> lines = Files.readAllLines(file.toPath());
+                System.out.println("Contents of " + fileName + ": ");
+                for (String line : lines) {
+                    System.out.println(line);
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + fileName);
+            }
+
+            // Далее идет обработка данных файла
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -90,7 +105,19 @@ public class FileFilterUtility {
 
         // Запись данных в файлы
         writeToFile("integers.txt", intCount, appendMode, "Integer", minInt, maxInt, intSum, intAverage);
-        writeToFile("floats.txt", floatCount, appendMode, "Float", 0, 0, 0, 0);
+        System.out.println("Number of floats to write: " + floatCount); // Добавим количество чисел с плавающей точкой
+
+        // Теперь записываем данные о float в отдельный файл
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputDir + "/floats.txt", appendMode), StandardCharsets.UTF_8))) {
+            writer.write("Number of floats: " + floatCount + "\n"); // Запишем количество вещественных чисел
+            writer.write("Sum of floats: " + intSum + "\n"); // Запишем сумму вещественных чисел
+            writer.write("Average of floats: " + (floatCount > 0 ? intSum / floatCount : 0) + "\n"); // Среднее значение, если есть вещественные числа
+        } catch (IOException e) {
+            System.out.println("Error writing to floats.txt");
+            e.printStackTrace();
+        }
+
+        writeToFile("test.txt", floatCount, appendMode, "Float", 0, 0, 0, 0);
         writeToFile("strings.txt", stringCount, appendMode, "String", minLength, maxLength, 0, 0);
     }
 
@@ -108,6 +135,8 @@ public class FileFilterUtility {
     // Обработка вещественного числа
     private void processFloat(double number) {
         floatCount++;  // Увеличиваем счетчик вещественных чисел
+        System.out.println("Processing float: " + number);  // Для отладки
+        intSum += number; // Добавляем в общую сумму
     }
 
     // Обработка строки
@@ -162,7 +191,16 @@ public class FileFilterUtility {
         if (count == 0) return;
 
         try {
+            // Используем текущую папку проекта как выходную папку
             String fullFileName = outputDir + "/" + (prefix.isEmpty() ? "" : prefix) + fileName;
+            System.out.println("Attempting to write to file: " + fullFileName); // Добавим вывод полного пути
+
+            // Убедимся, что папка существует
+            File outputDirFile = new File(outputDir);
+            if (!outputDirFile.exists()) {
+                outputDirFile.mkdirs();  // Создаём папку, если она не существует
+            }
+
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fullFileName, appendMode), StandardCharsets.UTF_8));
 
             if (type.equals("Integer")) {
@@ -170,12 +208,18 @@ public class FileFilterUtility {
                 writer.write("Maximum: " + max + "\n");
                 writer.write("Sum: " + sum + "\n");
                 writer.write("Average: " + average + "\n");
+            } else if (type.equals("Float")) {
+                writer.write("Number of floats: " + count + "\n"); // Для вещественных чисел
+            } else if (type.equals("String")) {
+                writer.write("Minimum string length: " + min + "\n");
+                writer.write("Maximum string length: " + max + "\n");
             }
-            writer.write("Number of " + type + ": " + count + "\n");
 
             writer.close();
+            System.out.println("Data successfully written to " + fullFileName); // Сообщение об успешной записи
         } catch (IOException e) {
             System.out.println("Error writing to file: " + fileName);
+            e.printStackTrace(); // Печатаем стек ошибок для диагностики
         }
     }
 }

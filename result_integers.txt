@@ -1,0 +1,4 @@
+Minimum: 123
+Maximum: 456
+Sum: 1883.6
+Average: 289.5

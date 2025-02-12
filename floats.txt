@@ -1,1 +1,3 @@
-Number of Float: 5
+Number of floats: 5
+Sum of floats: 1883.6
+Average of floats: 376.71999999999997
