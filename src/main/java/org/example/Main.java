@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -7,6 +8,7 @@ public class Main {
         // Сначала создаем объект для фильтрации
         FileFilterUtility utility = new FileFilterUtility(new ArrayList<>());
         System.out.println("Program started with args: " + Arrays.toString(args));
+
         // Обработка аргументов командной строки
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -38,6 +40,10 @@ public class Main {
         }
 
         // Обработка файлов
-        utility.processFiles();
+        try {
+            utility.processFiles();
+        } catch (IOException e) {
+            System.out.println("Error processing files: " + e.getMessage());
+        }
     }
 }

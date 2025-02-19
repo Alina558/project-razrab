@@ -1,7 +1,6 @@
-123.45
--67.89
-3.14
-Hello world
-Test string
-Java programming
-
+apple
+42
+banana
+99.99
+0
+test

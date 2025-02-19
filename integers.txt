@@ -1,0 +1,15 @@
+Integer count: 4
+Min: 0
+Max: 123
+Sum: 402.8
+Average: 100.7
+Integer count: 4
+Min: 0
+Max: 123
+Sum: 402.8
+Average: 100.7
+Integer count: 4
+Min: 0
+Max: 123
+Sum: 402.8
+Average: 100.7

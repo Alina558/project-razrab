@@ -1,0 +1,15 @@
+String count: 5
+Min: 4
+Max: 6
+Sum: 0.0
+Average: 0.0
+String count: 5
+Min: 4
+Max: 6
+Sum: 0.0
+Average: 0.0
+String count: 5
+Min: 4
+Max: 6
+Sum: 0.0
+Average: 0.0

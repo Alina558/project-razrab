@@ -1,3 +1,15 @@
-Number of floats: 0
-Sum of floats: 0.0
-Average of floats: 0.0
+Float count: 3
+Min: 0
+Max: 0
+Sum: 402.8
+Average: 0.0
+Float count: 3
+Min: 0
+Max: 0
+Sum: 402.8
+Average: 0.0
+Float count: 3
+Min: 0
+Max: 0
+Sum: 402.8
+Average: 0.0

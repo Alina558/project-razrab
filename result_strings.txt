@@ -1,2 +1,0 @@
-Minimum string length: 11
-Maximum string length: 16
